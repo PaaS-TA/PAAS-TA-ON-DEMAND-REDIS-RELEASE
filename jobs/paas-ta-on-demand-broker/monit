@@ -1,0 +1,5 @@
+check process paas-ta-on-demand-broker
+  with pidfile /var/vcap/sys/run/paas-ta-on-demand-broker/paas-ta-on-demand-broker.pid
+  start program "/var/vcap/jobs/paas-ta-on-demand-broker/bin/monit_debugger service_ctl '/var/vcap/jobs/paas-ta-on-demand-broker/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/paas-ta-on-demand-broker/bin/monit_debugger service_ctl '/var/vcap/jobs/paas-ta-on-demand-broker/bin/service_ctl stop'"
+  group vcap

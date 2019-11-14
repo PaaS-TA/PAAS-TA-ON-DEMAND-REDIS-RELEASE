@@ -1,0 +1,128 @@
+---
+name: "((deployment_name))"        #서비스 배포이름(필수) bosh deployments 로 확인 가능한 이름
+
+stemcells:
+- alias: "((stemcell_alias))"
+  os: "((stemcell_os))"
+  version: "((stemcell_version))"
+
+addons:
+- name: bpm
+  jobs:
+  - name: bpm
+    release: bpm
+
+variables:
+- name: redis-password
+  type: password
+
+releases:
+- name: bpm
+  version: latest
+- name: "((releases_name))"                  # 서비스 릴리즈 이름(필수) bosh releases로 확인 가능
+  version: "1.0"                                             # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+
+update:
+  canaries: 1                                               # canary 인스턴스 수(필수)
+  canary_watch_time: 5000-120000                            # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 5000-120000                            # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 1                                          # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+  serial: false
+
+instance_groups:
+########## INFRA ##########
+- name: mariadb
+  azs:
+  - z5
+  instances: 1
+  vm_type: medium 
+  stemcell: "((stemcell_alias))"
+  persistent_disk_type: "((mariadb_disk_type))"
+  networks:
+  - name: "((internal_networks_name))"
+  jobs:
+  - name: mariadb
+    release: "((releases_name))"
+  syslog_aggregator: null
+
+######## BROKER ########
+
+- name: paas-ta-on-demand-broker
+  azs:
+  - z5
+  instances: 1
+  vm_type: service_medium
+  stemcell: "((stemcell_alias))"
+  networks:
+  - name: "((internal_networks_name))"
+  jobs:
+  - name: paas-ta-on-demand-broker
+    release: "((releases_name))"
+  syslog_aggregator: null
+- name: redis
+  azs: 
+  - z5
+  instances: 0
+  vm_type: medium
+  stemcell: "((stemcell_alias))"
+  persistent_disk: 1024
+  networks:
+  - name: "((internal_networks_name))"
+  jobs:
+  - name: redis
+    release: "((releases_name))"
+- name: sanity-tests
+  azs:
+  - z5
+  instances: 1
+  lifecycle: errand
+  vm_type: medium
+  stemcell: "((stemcell_alias))"
+  networks: 
+  - name: "((internal_networks_name))"
+  jobs:
+  - name: sanity-tests
+    release: "((releases_name))"
+
+######### COMMON PROPERTIES ##########
+properties:
+  broker:
+    server:
+      port: "((broker_port))"
+    datasource:
+      password: "((mariadb_user_password))"
+    service_instance:
+      guid: "((service_instance_guid))"
+      name: "((service_instance_name))"
+      bullet:
+        name: "((service_instance_bullet_name))"
+        desc: "((service_instance_bullet_desc))"
+      plan: 
+        id: "((service_instance_plan_guid))"
+        name: "((service_instance_plan_name))"
+        desc: "((service_instance_plan_desc))"
+      org_limitation: "((service_instance_org_limitation))"
+      space_limitation: "((service_instance_space_limitation))"
+    bosh:
+      client_id: "((bosh_client_admin_id))"
+      client_secret: "((bosh_client_admin_secret))"
+      url: ((bosh_url)):((bosh_director_port))
+      oauth_url: ((bosh_url)):((bosh_oauth_port))
+      deployment_name: "((deployment_name))"
+      instance_name: "((on_demand_service_instance_name))"
+    cloudfoundry:
+      url: "((cloudfoundry_url))"
+      sslSkipValidation: "((cloudfoundry_sslSkipValidation))"
+      admin:
+        id: "((cloudfoundry_admin_id))"
+        password: "((cloudfoundry_admin_password))"
+  mariadb:                                                # MARIA DB SERVER 설정 정보
+    port: "((mariadb_port))"                                            # MARIA DB PORT 번호
+    admin_user:
+      password: "((mariadb_user_password))"                             # MARIA DB ROOT 계정 비밀번호
+    host_names:
+    - mariadb0
+######### SERVICE PROPERTIES #################
+  service:
+    password: "((service_password))"
+    port: "((service_port))"

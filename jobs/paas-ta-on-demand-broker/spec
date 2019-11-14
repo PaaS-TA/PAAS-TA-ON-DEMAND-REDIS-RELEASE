@@ -1,0 +1,73 @@
+---
+name: paas-ta-on-demand-broker 
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - paas-ta-on-demand-broker
+
+provides:
+  - {name: paas-ta-on-demand-broker-link, type: paas-ta-on-demand-broker, properties: [broker.server.port, broker.datasource.password, broker.service_instance.guid, broker.service_instance.plan.id, broker.service_instance.plan.name, broker.service_instance.plan.desc, broker.bosh.client_id, broker.bosh.client_secret, broker.bosh.url, broker.bosh.oauth_url, broker.bosh.deployment_name, broker.bosh.instance_name, mariadb.port, broker.service_instance.name, broker.service_instance.bullet.name, broker.service_instance.bullet.desc, broker.service_instance.org_limitation, broker.service_instance.space_limitation, broker.cloudfoundry.url, broker.cloudfoundry.sslSkipValidation, broker.cloudfoundry.admin.id, broker.cloudfoundry.admin.password, service.password, service.port]}
+
+consumes:
+  - name: mariadb-link
+    type: mariadb
+
+properties:
+  java_opts:
+    description: 'Luncher Java option'
+    default: '-Xms512m -Xmx1024m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -Dfile.encoding=UTF-8 -XX:+UseConcMarkSweepGC -XX:SoftRefLRUPolicyMSPerMB=50 -Dsun.io.useCanonCaches=false -Djava.net.preferIPv4Stack=true -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Xverify:none -XX:ErrorFile=/var/vcap/sys/log/java_error_in_idea_%p.log -XX:HeapDumpPath=/var/vcap/sys/log/java_error_in_idea.hprof'
+  broker.server.port:
+    description: 'On-Demand-Service-Broker Server Port'
+  broker.datasource.password:
+    description: 'MariaDB Password'
+  broker.service_instance.guid:
+    description: 'On-Demand Service Instance Guid.'
+  broker.service_instance.name:
+    description: 'On-Demand Service Instance Name'
+  broker.service_instance.bullet.name:
+    description: 'On-Demand Service Instance Bullet Name'
+  broker.service_instance.bullet.desc:
+    description: 'On-Demand Service Instance Bullet Desc'
+  broker.service_instance.plan.id:
+    description: 'On-Demand Broker Service Instance Plan Guid'
+  broker.service_instance.plan.name:
+    description: 'On-Demand Broker Service Instance Plan Name.'
+  broker.service_instance.plan.desc:
+    description: 'On-Demand Broker Service Instance Plan Description'
+  broker.service_instance.org_limitation:
+    description: 'The number of service limitations in the organization -1 is unlimited'
+  broker.service_instance.space_limitation:
+    description: 'The number of service limitations in the space -1 is unlimited'
+  broker.bosh.client_id:
+    description: 'Bosh Client Admin ID'
+  broker.bosh.client_secret:
+    description: 'Bosh Client Admin Secret'
+  broker.bosh.url:
+    description: 'Bosh Api Url'
+  broker.bosh.oauth_url:
+    description: 'Bosh Oauth Url'
+  broker.bosh.deployment_name:
+    description: 'Bosh On-Demand Broker Deployment Name'
+  broker.bosh.instance_name:
+    description: 'Bosh On-Demand Broker Service Instance VM Name'
+  broker.cloudfoundry.url:
+    description: 'CloudFoundry URL'
+  broker.cloudfoundry.sslSkipValidation:
+    description: 'CloudFoundry Login SSL Validation'
+  broker.cloudfoundry.admin.id:
+    description: 'CloudFoundry Admin ID'
+  broker.cloudfoundry.admin.password:
+    description: 'CloudFoundry Admin Password'
+  mariadb.port:
+    description: 'MariaDB Port' 
+  service.password:
+    description: 'Service Password'
+  service.port:
+    description: 'Service Port'

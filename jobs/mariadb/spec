@@ -1,0 +1,21 @@
+---
+name: mariadb
+templates:
+  bin/mariadb_ctl.erb: bin/mariadb_ctl
+  bin/pre-start: bin/pre-start
+  bin/post-start: bin/post-start
+  conf/init.sql: conf/init.sql
+  conf/mariadb.cnf: conf/mariadb.cnf
+packages:
+  - mariadb
+
+provides:
+  - {name: mariadb-link, type: mariadb, properties: [mariadb.port, mariadb.admin_user.password]}
+
+properties:
+  mariadb.port:
+    description: MariaDB server port
+    default: 3306
+  mariadb.admin_user.password:
+    description: MariaDB admin user password
+    default: admin

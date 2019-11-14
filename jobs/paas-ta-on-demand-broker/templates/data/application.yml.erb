@@ -1,0 +1,56 @@
+server:
+  port: <%= p('broker.server.port')%>
+
+bosh:
+  client_id: <%= p('broker.bosh.client_id')%>
+  client_secret: <%= p('broker.bosh.client_secret')%>
+  url: <%= p('broker.bosh.url')%>
+  oauth_url: <%= p('broker.bosh.oauth_url')%>
+  deployment_name: <%= p('broker.bosh.deployment_name')%>
+  instance_name: <%= p('broker.bosh.instance_name')%>
+
+spring:
+  application:
+    name: paas-ta-on-demand-broker
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: "jdbc:mysql://<%= link('mariadb-link').instances[0].address%>:<%= link('mariadb-link').p('mariadb.port')%>/on-demand?autoReconnect=true&useUnicode=true&characterEncoding=utf8"
+    username: root
+    password: <%= p('broker.datasource.password')%>
+  jpa:
+    hibernate:
+      ddl-auto: none
+      database: mysql
+      show-sql: true
+
+serviceDefinition:
+  id: <%= p('broker.service_instance.guid')%>
+  name: <%= p('broker.service_instance.name')%>
+  desc: "A paasta source control service for application development.provision parameters : parameters {owner : owner}"
+  bindable: true
+  planupdatable: false
+  bullet:
+    name: <%= p('broker.service_instance.bullet.name')%>
+    desc: <%= p('broker.service_instance.bullet.desc')%>
+  plan1:
+    id: <%= p('broker.service_instance.plan.id')%>
+    name: <%= p('broker.service_instance.plan.name')%>
+    desc: <%= p('broker.service_instance.plan.desc')%>
+    type: A
+  org_limitation: <%= p('broker.service_instance.org_limitation')%>
+  space_limitation: <%= p('broker.service_instance.space_limitation')%>
+
+cloudfoundry:
+  cc:
+    api:
+      url: https://api.<%= p('broker.cloudfoundry.url')%>
+      uaaUrl: https://uaa.<%= p('broker.cloudfoundry.url')%>
+      sslSkipValidation: <%= p('broker.cloudfoundry.sslSkipValidation')%>
+  user:
+    admin:
+      username: <%= p('broker.cloudfoundry.admin.id')%>
+      password: <%= p('broker.cloudfoundry.admin.password')%>
+
+instance:
+  password: <%= p('service.password')%>
+  port: <%= p('service.port')%>

@@ -1,0 +1,10 @@
+---
+service_instance_guid: 54e2de61-de84-4b9c-afc3-88d08aadfcb6
+service_instance_name: redis
+service_instance_bullet_name: Redis Dedicated Server Use
+service_instance_bullet_desc: Redis Service Using a Dedicated Server
+service_instance_plan_guid: 2a26b717-b8b5-489c-8ef1-02bcdc445720
+service_instance_plan_name: dedicated-vm
+service_instance_plan_desc: Redis service to provide a key-value store
+service_instance_org_limitation: -1
+service_instance_space_limitation: -1

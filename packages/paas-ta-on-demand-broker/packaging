@@ -1,0 +1,6 @@
+set -e
+
+JAR_DIR_NAME=paas-ta-on-demand-broker
+JAR_NAME=paas-ta-on-demand-broker
+
+cp $JAR_DIR_NAME/$JAR_NAME.jar ${BOSH_INSTALL_TARGET}

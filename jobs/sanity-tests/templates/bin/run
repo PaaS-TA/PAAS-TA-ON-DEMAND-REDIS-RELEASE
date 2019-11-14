@@ -1,0 +1,101 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+export PATH=$PATH:/var/vcap/packages/redis-4/bin
+
+EXITSTATUS=0
+
+master=<%= link("redis").instances.find {|redis| redis.bootstrap }.address %>
+slave=<%= link("redis").instances.find {|redis| !redis.bootstrap }.address %>
+port="<%= link('redis').p('port') %>"
+password="<%= link('redis').p('password') %>"
+
+echo "-----"
+echo "TEST: Write/read to master"
+redis-cli -h $master -p $port -a $password set rats running
+rats=$(redis-cli -h $master -p $port -a $password get rats)
+
+if [[ "${rats}" == "running" ]]
+then
+  echo "PASSED"
+else
+  echo "FAILED"
+  EXITSTATUS=1
+fi
+
+echo "-----"
+echo "TEST: Read from slave"
+rats=$(redis-cli -h $slave -p $port -a $password get rats)
+
+if [[ "${rats}" == "running" ]]
+then
+  echo "PASSED"
+else
+  echo "FAILED"
+  EXITSTATUS=1
+fi
+
+if [[ -n "$password" ]]
+then
+  echo "-----"
+  echo "TEST: Write/read to master: testing password requirement"
+  result="$(redis-cli -h $master -p $port -a "not-the-password" set rats testing-password-requirement)"
+  if [[ "$result" != *"NOAUTH Authentication required."* ]]
+  then
+    echo "FAILED: Was able to write to master with incorrect password"
+    EXITSTATUS=2
+  fi
+  rats=$(redis-cli -h $master -p $port -a "different-password" get rats)
+  if [[ "$rats" != *"NOAUTH Authentication required."* ]]
+  then
+    echo "FAILED: Was able to read from master with wrong password"
+    EXITSTATUS=2
+  fi
+  rats2=$(redis-cli -h $master -p $port get rats)
+  if [[ "$rats2" != *"NOAUTH Authentication required."* ]]
+  then
+    echo "FAILED: Was able to read from master with no password"
+    EXITSTATUS=2
+  fi
+
+  if [[ "${rats}" == "testing-password-requirement" ]]
+  then
+    echo "FAILED: Able to retrieve correct value with incorrect password"
+    EXITSTATUS=2
+  fi
+
+  if [[ "${rats2}" == "testing-password-requirement" ]]
+  then
+    echo "FAILED: Able to retrieve correct value with no password"
+    EXITSTATUS=2
+  fi
+  if [[ $EXITSTATUS == "2" ]]
+  then
+    EXITSTATUS=1
+  else
+    echo "PASSED"
+  fi
+fi
+
+if [[ -z "$password" ]]
+then
+  echo "-----"
+  echo "TEST: Write/read to master: testing empty password requirement"
+
+  rats=$(redis-cli -h $master -p $port get rats)
+  if [[ "$rats" == *"NOAUTH Authentication required."* ]]
+  then
+    echo "FAILED: Was unable to read from master with no password"
+    EXITSTATUS=2
+  fi
+  if [[ $EXITSTATUS == "2" ]]
+  then
+    EXITSTATUS=1
+  else
+    echo "PASSED"
+  fi
+fi
+
+exit $EXITSTATUS

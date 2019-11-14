@@ -1,0 +1,7 @@
+---
+name: paas-ta-on-demand-broker
+
+dependencies: []
+
+files:
+- paas-ta-on-demand-broker/paas-ta-on-demand-broker.jar
