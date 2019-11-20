@@ -1,36 +1,36 @@
 #!/bin/bash
-
+  
 ---
 ### On-Demand Bosh Deployment Name Setting ###
-deployment_name: paas-ta-on-demand-redis-service                       #On-Demand Deployment Name
+deployment_name: paas-ta-on-demand-redis-service                #On-Demand Deployment Name
 
 ### Main Stemcells Setting ###
 stemcell_os: ubuntu-xenial                                      # Deployment Main Stemcell OS
-stemcell_version: latest                                       # Main Stemcell Version
+stemcell_version: latest                                        # Main Stemcell Version
 stemcell_alias: default                                         # Main Stemcell Alias
 
 ### On-Demand Release Deployment Setting ### 
-releases_name : paas-ta-on-demand-redis-release                               # On-Demand Release Name
-internal_networks_name : default                        # Some Network From Your 'bosh cloud-config(cc)'
-mariadb_disk_type : 2GB                                        # MariaDB Disk Type 'bosh cloud-config(cc)'
+releases_name : paasta-on-demand-redis-release                  # On-Demand Release Name
+internal_networks_name : default                                # Some Network From Your 'bosh cloud-config(cc)'
+mariadb_disk_type : 2GB                                         # MariaDB Disk Type 'bosh cloud-config(cc)'
 broker_port : 8080                                              # On-Demand Broker Server Port
 bosh_client_admin_id: admin                                     # Bosh Client Admin ID
-bosh_client_admin_secret: 		                        # Bosh Client Admin Secret 'echo ${BOSH_CLIENT_SECRET}'
-bosh_url: https://xxx.xxx.xxx.xxx                               # Bosh URL 'bosh env'
+bosh_client_admin_secret: {bosh_admin_clinet_secret}            # Bosh Client Admin Secret 'echo ${BOSH_CLIENT_SECRET}'
+bosh_url: https://{xxx.xxx.xxx.xxx}                             # Bosh URL 'bosh env'
 bosh_director_port: 25555                                       # Bosh API Port
 bosh_oauth_port: 8443                                           # Bosh Oauth Port
 
-cloudfoundry_url: xxx.xxx.xxx.xxx.xip.io                        # CloudFoundry URL
+cloudfoundry_url: {xxx.xxx.xxx.xxx}.xip.io                      # CloudFoundry URL
 cloudfoundry_sslSkipValidation: true                            # CloudFoundry Login SSL Validation
 cloudfoundry_admin_id: admin                                    # CloudFoundry Admin ID
-cloudfoundry_admin_password:                                    # CloudFoundry Admin Password
+cloudfoundry_admin_password: {cf_admin_password}                # CloudFoundry Admin Password
 
 ### On-Demand Service Property(Changes are possible) ###
 mariadb_port: 3306                                              # MariaDB Server Port
-mariadb_user_password:                                          # MariaDB Root Password
+mariadb_user_password: {mariadb_admin_password}                 # MariaDB Root Password
 
 ### On-Demand Dedicated Service Instance Properties ###
 
 on_demand_service_instance_name: redis                          # On-Demand Service Instance Name
-service_password: 
+service_password: {redis_admin_password}
 service_port: 6379
