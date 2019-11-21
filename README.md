@@ -11,7 +11,7 @@ bosh 2.0 PAAS-TA-ON-DEMAND-REDIS-BROKER-RELEASE
 
 2.SRC DOWNLOAD
 ------------------------
-- wget -O download.zip http://45.248.73.44/index.php/s/Jo4dtKb4ifQry2j/download
+- wget -O download.zip http://45.248.73.44/index.php/s/NWAx5paoc7oC7cW/download
 - unzip download.zip
 - rm -rf download.zip
 ------------------------
