@@ -57,6 +57,13 @@ properties:
     description: 'Bosh On-Demand Broker Deployment Name'
   broker.bosh.instance_name:
     description: 'Bosh On-Demand Broker Service Instance VM Name'
+
+  broker.bosh.version:
+    description: 'Bosh Api Version'
+    default: 270.2
+
+
+
   broker.cloudfoundry.url:
     description: 'CloudFoundry URL'
   broker.cloudfoundry.sslSkipValidation:
