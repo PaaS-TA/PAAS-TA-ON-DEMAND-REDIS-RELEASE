@@ -1,0 +1,3 @@
+[submodule "src/paas-ta-on-demand-broker"]
+	path = src/paas-ta-on-demand-broker
+	url = https://github.com/PaaS-TA/PAAS-TA-ON-DEMAND-SERVICE-BROKER
