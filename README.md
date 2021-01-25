@@ -1,34 +1,57 @@
-# PAAS-TA-ON-DEMAND-BROKER-RELEASE
-bosh 2.0 PAAS-TA-ON-DEMAND-REDIS-BROKER-RELEASE
+# PAAS-TA-ON-DEMAND-REDIS-RELEASE
+bosh 2.0 PAAS-TA-ON-DEMAND-REDIS-RELEASE
 
-1.ON-DEMAND Configuration
+
+# ON-DEMAND Configuration
 ------------------------
 - mysql :: 1 machine
 - on-demand-broker :: 1 machine
-- service :: 1 machine (REDIS)
-
-------------------------
-
-2.SRC sumbmodule update & build
-------------------------
-- git submodule init
-- git submodule update
-- cd  src/paas-ta-on-demand-broker
-- gradle build
-------------------------
+- service :: 0...# machine (on-demand-REDIS)
 
 
-3.SRC DOWNLOAD
-------------------------
-- cd  {clone_dir}
-- wget -O download.zip http://45.248.73.44/index.php/s/NWAx5paoc7oC7cW/download
-- unzip download.zip
-- rm -rf download.zip
-------------------------
 
 
-4. replace paas-ta-on-demand-broker.jar
+
+# Release 생성
 ------------------------
-- cd src/paas-ta-on-demand-broker
-- mv build/libs/paas-ta-on-demand-broker.jar paas-ta-on-demand-broker.jar
-------------------------
+
+[안1] SRC DOWNLOAD 후 생성 
+````
+$ cd ~/
+$ git clone https://github.com/PaaS-TA/PAAS-TA-ON-DEMAND-REDIS-RELEASE.git
+$ cd PAAS-TA-ON-DEMAND-REDIS-RELEAS
+
+$ wget -O src.zip http://45.248.73.44/index.php/s/4WN2HbeBxs9SYfT/download
+$ unzip src.zip
+$ rm -rf src.zip
+
+# sh create.sh {RELEASE-NAEM} {VERSION}
+$ sh create.sh paasta-on-demand-redis 1.1.0
+````
+
+
+
+
+
+[안2] SRC submodule update & build 후 생성 
+````
+$ cd ~/
+$ git clone https://github.com/PaaS-TA/PAAS-TA-ON-DEMAND-REDIS-RELEASE.git
+$ cd PAAS-TA-ON-DEMAND-REDIS-RELEAS
+$ git submodule init
+$ git submodule update
+
+$ cd  src/paas-ta-on-demand-broker
+$ gradle build
+
+$ cd  ../..
+$ wget -O src.zip http://45.248.73.44/index.php/s/4WN2HbeBxs9SYfT/download
+$ unzip src.zip
+$ rm -rf src.zip
+
+$ cd src/paas-ta-on-demand-broker
+$ mv build/libs/paas-ta-on-demand-broker.jar paas-ta-on-demand-broker.jar
+
+# sh create.sh {RELEASE-NAEM} {VERSION}
+$ sh create.sh paasta-on-demand-redis 1.1.0
+````
