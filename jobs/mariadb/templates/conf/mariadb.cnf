@@ -35,3 +35,13 @@ general_log_file = /var/vcap/sys/log/mariadb/mariadb-general.log
 # read_rnd_buffer_size = 2M
 
 sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+
+# CCE
+<% if p('mariadb.cce_enable') %>
+plugin_load_add= auth_ed25519
+general_log = 1
+general_log_file = /var/vcap/sys/log/mariadb/mariadb-general.log
+slow_query_log = 1
+slow_query_log_file = /var/vicap/sys/log/mariadb/mariadb-slow-query.log
+<% end %>
+

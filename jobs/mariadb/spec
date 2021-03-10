@@ -19,3 +19,6 @@ properties:
   mariadb.admin_user.password:
     description: MariaDB admin user password
     default: admin
+  mariadb.cce_enable:
+    description: 'mariadb.cce_enable'
+    default: false

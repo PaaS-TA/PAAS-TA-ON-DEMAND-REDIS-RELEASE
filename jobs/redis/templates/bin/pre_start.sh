@@ -26,6 +26,8 @@ chpst -u root:root sysctl vm.overcommit_memory=1
 # Earlier builds generated a redis.log owned by root.  This resets logs dir owners to vcap.
 chpst -u root:root chown -R vcap:vcap /var/vcap/sys/log
 
+chown vcap:vcap /var/vcap/jobs/redis/config/redis.conf 
+
 if [ -d /var/vcap/store/redis ]; then
   echo "restart vm store remove"
   rm -rf /var/vcap/store/redis/*

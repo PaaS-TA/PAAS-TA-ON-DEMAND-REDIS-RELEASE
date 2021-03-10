@@ -27,10 +27,10 @@ port <%= p("service.port") %>
 #  
 # bind_static_ip true
 #
-<% if_p("bind_static_ip") do |bind_static_ip| %>
-<% if bind_static_ip == true %>
-bind <%= spec.ip %>
-<% end %>
+# CCE
+<% if p('cce_enable') %>
+protected-mode yes
+bind 127.0.0.1
 <% end %>
 
 # If you want you can bind a single interface, if the bind option is not
@@ -289,7 +289,11 @@ slave-priority 100
 #
 # Example:
 #
-# rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52
+
+# CCE
+<% if p('cce_enable') %>
+rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52
+<% end %>
 #
 # It is also possible to completely kill a command by renaming it into
 # an empty string:

@@ -34,6 +34,9 @@ properties:
       - 300 10
       - 60 10000
     description: save <seconds> <changes>; save points to the rdb snapshot after #<seconds> seconds have passed if at least #<changes> key changes have occurred
+  cce_enable:
+    description: 'redis cce_enable'
+    default : false
   bind_static_ip:
     description: Specify this property if you would like the bind address of a given instance to be automatically set to its assigned static IP
     default: false
