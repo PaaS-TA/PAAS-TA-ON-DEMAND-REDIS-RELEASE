@@ -53,5 +53,5 @@ $ cd src/paas-ta-on-demand-broker
 $ mv build/libs/paas-ta-on-demand-broker.jar paas-ta-on-demand-broker.jar
 
 # sh create.sh {RELEASE-NAME} {VERSION}
-$ sh create.sh paasta-on-demand-redis 1.22.0
+$ sh create.sh paasta-on-demand-redis 1.2.0
 ````
