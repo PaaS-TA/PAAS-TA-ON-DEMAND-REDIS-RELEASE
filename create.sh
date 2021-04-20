@@ -33,6 +33,6 @@ else
 "
 fi
 
-bosh create-release --force --tarball ${1}-release-${2}.tgz --name ${1} --version ${2}
+bosh create-release --force --tarball ${1}-${2}.tgz --name ${1} --version ${2}
 
-bosh upload-release ${1}-release-${2}.tgz
+bosh upload-release ${1}-${2}.tgz

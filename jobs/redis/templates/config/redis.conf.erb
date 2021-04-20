@@ -273,7 +273,6 @@ slave-priority 100
 # Warning: since Redis is pretty fast an outside user can try up to
 # 150k passwords per second against a good box. This means that you should
 # use a very strong password otherwise it will be very easy to break.
-#
 <% if_p("service.password") do |password| %>
   <% if password.to_s != "" %>
     requirepass <%= p("service.password") %>

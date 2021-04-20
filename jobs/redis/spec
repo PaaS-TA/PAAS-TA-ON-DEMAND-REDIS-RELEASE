@@ -22,9 +22,10 @@ consumes:
 properties:
   service.port:
     description: Port to listen for requests to redis server
-    default: 6379
+    default: 63799
   service.password:
     description: Password to access redis server
+    default: 'PASSWORD'
   base_dir:
     description: Base dir for storing database files
     default: /var/vcap/store/redis

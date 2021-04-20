@@ -27,6 +27,7 @@ chpst -u root:root sysctl vm.overcommit_memory=1
 chpst -u root:root chown -R vcap:vcap /var/vcap/sys/log
 
 chown vcap:vcap /var/vcap/jobs/redis/config/redis.conf 
+chmod 600 /var/vcap/jobs/redis/config/redis.conf 
 
 if [ -d /var/vcap/store/redis ]; then
   echo "restart vm store remove"
