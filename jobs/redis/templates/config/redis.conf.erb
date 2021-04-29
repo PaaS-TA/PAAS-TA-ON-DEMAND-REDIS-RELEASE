@@ -30,7 +30,7 @@ port <%= p("service.port") %>
 # CCE
 <% if p('cce_enable') %>
 protected-mode yes
-bind 127.0.0.1
+bind _vm_ip
 <% end %>
 
 # If you want you can bind a single interface, if the bind option is not
