@@ -1,5 +1,13 @@
-    UPDATE mysql.user SET password=PASSWORD('<%= p("mariadb.admin_user.password") %>') WHERE user='root';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>' WITH GRANT OPTION;
+<% if p("mariadb.cce_enable") %>
+        GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'         IDENTIFIED VIA ed25519 USING PASSWORD('<%= p("mariadb.admin_user.password") %>') WITH GRANT OPTION;
+        GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED VIA ed25519 USING PASSWORD('<%= p("mariadb.admin_user.password") %>') WITH GRANT OPTION;
+        ALTER USER 'root'@'localhost'                     IDENTIFIED VIA ed25519 USING PASSWORD('<%= p("mariadb.admin_user.password") %>');
+        ALTER USER 'mariadb.sys'@'localhost'              IDENTIFIED VIA ed25519 USING PASSWORD('<%= p("mariadb.admin_user.password") %>');
+        ALTER USER 'vcap'@'localhost'                     IDENTIFIED VIA ed25519 USING PASSWORD('<%= p("mariadb.admin_user.password") %>');
+<% else %>
+    	UPDATE mysql.user SET password=PASSWORD('<%= p("mariadb.admin_user.password") %>') WHERE user='root';
+	GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>' WITH GRANT OPTION;
+<% end %>
 FLUSH PRIVILEGES;
 
 

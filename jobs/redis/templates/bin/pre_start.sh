@@ -26,6 +26,16 @@ chpst -u root:root sysctl vm.overcommit_memory=1
 # Earlier builds generated a redis.log owned by root.  This resets logs dir owners to vcap.
 chpst -u root:root chown -R vcap:vcap /var/vcap/sys/log
 
+<% if p("cce_enable") %>
+  echo "###########################################################"
+  echo "# CE enable "
+  _vm_ip=`ip route get 8.8.8.8 | awk '{print $NF; exit}'`
+  sed -i "s/_vm_ip/$_vm_ip/" /var/vcap/jobs/redis/config/redis.conf
+  echo "###########################################################"
+<% end %>
+chown vcap:vcap /var/vcap/jobs/redis/config/redis.conf 
+chmod 600 /var/vcap/jobs/redis/config/redis.conf 
+
 if [ -d /var/vcap/store/redis ]; then
   echo "restart vm store remove"
   rm -rf /var/vcap/store/redis/*

@@ -19,14 +19,14 @@ bosh 2.0 PAAS-TA-ON-DEMAND-REDIS-RELEASE
 ````
 $ cd ~/
 $ git clone https://github.com/PaaS-TA/PAAS-TA-ON-DEMAND-REDIS-RELEASE.git
-$ cd PAAS-TA-ON-DEMAND-REDIS-RELEAS
+$ cd PAAS-TA-ON-DEMAND-REDIS-RELEASE
 
-$ wget -O src.zip http://45.248.73.44/index.php/s/4WN2HbeBxs9SYfT/download
+$ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/dQLGyCq2pJbYjWG/download
 $ unzip src.zip
 $ rm -rf src.zip
 
-# sh create.sh {RELEASE-NAEM} {VERSION}
-$ sh create.sh paasta-on-demand-redis 1.1.0
+# sh create.sh {RELEASE-NAME} {VERSION}
+$ sh create.sh paasta-on-demand-redis 1.2.0
 ````
 
 
@@ -37,7 +37,7 @@ $ sh create.sh paasta-on-demand-redis 1.1.0
 ````
 $ cd ~/
 $ git clone https://github.com/PaaS-TA/PAAS-TA-ON-DEMAND-REDIS-RELEASE.git
-$ cd PAAS-TA-ON-DEMAND-REDIS-RELEAS
+$ cd PAAS-TA-ON-DEMAND-REDIS-RELEASE
 $ git submodule init
 $ git submodule update
 
@@ -45,13 +45,13 @@ $ cd  src/paas-ta-on-demand-broker
 $ gradle build
 
 $ cd  ../..
-$ wget -O src.zip http://45.248.73.44/index.php/s/4WN2HbeBxs9SYfT/download
+$ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/dQLGyCq2pJbYjWG/download
 $ unzip src.zip
 $ rm -rf src.zip
 
 $ cd src/paas-ta-on-demand-broker
 $ mv build/libs/paas-ta-on-demand-broker.jar paas-ta-on-demand-broker.jar
 
-# sh create.sh {RELEASE-NAEM} {VERSION}
-$ sh create.sh paasta-on-demand-redis 1.1.0
+# sh create.sh {RELEASE-NAME} {VERSION}
+$ sh create.sh paasta-on-demand-redis 1.2.0
 ````
