@@ -29,7 +29,7 @@ chpst -u root:root chown -R vcap:vcap /var/vcap/sys/log
 <% if p("cce_enable") %>
   echo "###########################################################"
   echo "# CE enable "
-  _vm_ip=`ip route get 8.8.8.8 | awk '{print $NF; exit}'`
+  _vm_ip=`ip route get 8.8.8.8 | awk '{print $(NF-2); exit}'`
   sed -i "s/_vm_ip/$_vm_ip/" /var/vcap/jobs/redis/config/redis.conf
   echo "###########################################################"
 <% end %>
