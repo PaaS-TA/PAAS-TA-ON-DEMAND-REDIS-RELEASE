@@ -11,12 +11,12 @@ if [ ! -d "$DATA_DIR" ]; then
   PKG_NAME=mariadb
   CONF_FILE=$BASE_DIR/mariadb.cnf
 
-  tar zxvf /var/vcap/packages/$PKG_NAME/mariadb-10.5.9-linux-x86_64.tar.gz -C /var/vcap/store/
+  tar zxvf /var/vcap/packages/$PKG_NAME/mariadb-10.5.*-linux-x86_64.tar.gz -C /var/vcap/store/
 
-  ln -s /var/vcap/store/mariadb-10.5.9-linux-x86_64 $BASE_DIR
+  ln -s /var/vcap/store/mariadb-10.5.*-linux-x86_64 $BASE_DIR
   sudo chmod 777 /tmp
   sudo chown vcap:vcap /var/vcap/sys/log/mariadb
-  sudo chown vcap:vcap /var/vcap/store/mariadb-10.5.9-linux-x86_64
+  sudo chown vcap:vcap /var/vcap/store/mariadb-10.5.*-linux-x86_64
 
   mkdir -p /var/vcap/store/mariadb-data
   sudo chown -R vcap /var/vcap/store/mariadb-data
