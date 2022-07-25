@@ -91,7 +91,7 @@ $ cd ~/
 $ git clone https://github.com/PaaS-TA/PAAS-TA-ON-DEMAND-REDIS-RELEASE.git
 $ cd PAAS-TA-ON-DEMAND-REDIS-RELEASE
 
-$ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/8bNQMokKfpMXZZr/download
+$ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/9WsYjZQjMJsinJF/download
 $ unzip src.zip
 $ rm -rf src.zip
 
@@ -115,7 +115,7 @@ $ cd  src/paas-ta-on-demand-broker
 $ gradle build
 
 $ cd  ../..
-$ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/4AFGJicnTPP3KK8/download
+$ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/9WsYjZQjMJsinJF/download
 $ unzip src.zip
 $ rm -rf src.zip
 
