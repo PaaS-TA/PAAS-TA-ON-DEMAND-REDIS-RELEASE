@@ -1,6 +1,6 @@
 ---
 name: redis
-packages: [redis-4]
+packages: [redis]
 templates:
   config/bpm.yml.erb: config/bpm.yml
   config/redis.conf.erb: config/redis.conf

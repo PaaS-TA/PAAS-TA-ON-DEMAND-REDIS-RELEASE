@@ -1,5 +1,5 @@
 ---
-name: redis-4
+name: redis
 dependencies: []
 files:
 - redis/redis-*.tar.gz
