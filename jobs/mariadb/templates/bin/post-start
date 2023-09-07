@@ -9,5 +9,5 @@ if [ ! -d "$DATA_DIR/keystone" ]; then
   JOB_PATH=/var/vcap/jobs/$JOB_NAME
   BASE_DIR=/var/vcap/store/$JOB_NAME
 
-  $BASE_DIR/bin/mysql -u root < $JOB_PATH/conf/init.sql
+  $BASE_DIR/bin/mysql -u root --password='<%= p("mariadb.admin_user.password") %>' < $JOB_PATH/conf/init.sql
 fi
